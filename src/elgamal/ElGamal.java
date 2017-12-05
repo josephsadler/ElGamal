@@ -3,16 +3,21 @@ import java.util.*;
 import java.io.*;
 public class ElGamal {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int p = 31847;
         int alpha = 5;
         int beta = 18074;
+        File cipher = new File ("Cipher.txt");
 
         System.out.println(modExp(5, p - 20, p));
         System.out.println(modInverse(3,7));
         System.out.println(findKey(alpha,beta,p));
         System.out.println(modExp(5,7899,p));
         findWord(findMessage(p,findKey(alpha,beta,p),3781,14409));
+        List<Point> listPoint = new ArrayList<Point>();
+        listPoint = getPositions(cipher);
+        System.out.print(listPoint.get(1).getX());
+        System.out.print(listPoint.get(1).getY());
     }
 
     /* Performs modular exponentiation
@@ -197,5 +202,20 @@ public class ElGamal {
       break;
 }
   return x;
+}
+    private static List<Point> getPositions(final File file)
+        throws FileNotFoundException, IOException {
+    if (file == null || !file.canRead()) {
+        throw new IllegalArgumentException("file not readable: " + file);
+    }
+
+    final Scanner s = new Scanner(file).useDelimiter("(\\d,\\d)\n");
+    final List<Point> positions = new ArrayList<Point>();
+    while (s.hasNext()) {
+        positions.add(new Point(s.nextInt(), s.nextInt()));
+        s.nextLine();
+    }
+
+    return positions;
 }
 }
