@@ -1,5 +1,6 @@
 package elgamal;
-
+import java.util.*;
+import java.io.*;
 public class ElGamal {
 
     public static void main(String[] args) {
@@ -10,10 +11,8 @@ public class ElGamal {
         System.out.println(modExp(5, p - 20, p));
         System.out.println(modInverse(3,7));
         System.out.println(findKey(alpha,beta,p));
-        
         System.out.println(modExp(5,7899,p));
-        findWord(modExp(5,7899,p));
-
+        findWord(findMessage(p,findKey(alpha,beta,p),3781,14409));
     }
 
     /* Performs modular exponentiation
@@ -78,14 +77,41 @@ public class ElGamal {
             secretKey++;
         }
     }
-    
+    /* Find Message using Pair C1,C2*/
+     public static int findMessage(int p, int x, int C1, int C2){
+
+  // Calculating the C1 / C2 Formula
+  int p1x=0;
+  p1x = p-x;
+  p1x = p1x-1;
+
+  C1 = modpow(C1,p1x,p);
+  C2 = C2%p;
+
+  int message;
+  message = C1*C2;
+  message = message%p;
+  return message;
+ }
+     
+     /* modPow method for int */
+     public static int modpow(int value , int power, int mod){
+    int e = 1;
+   
+    for (int i = 0; i < power; i++) {
+         e = ((e * value) % mod);
+            
+    }
+        
+        return e;
+}
     /*Translating result to text*/
     public static void findWord(int message){
    int x,y,z;
    z = message%26;
    y = ((message-z)/26)%26;
    x = ((message-z)-(y*26))/(26*26);
-  System.out.print(matchWord(x)+matchWord(y)+matchWord(z));
+  System.out.println(matchWord(x)+matchWord(y)+matchWord(z));
 }
     /*Matching numbers with letters*/
     public static String matchWord(int a){
