@@ -12,6 +12,7 @@ public class ElGamal {
         System.out.println(findKey(alpha,beta,p));
         
         System.out.println(modExp(5,7899,p));
+        findWord(modExp(5,7899,p));
 
     }
 
@@ -77,4 +78,98 @@ public class ElGamal {
             secretKey++;
         }
     }
+    
+    /*Translating result to text*/
+    public static void findWord(int message){
+   int x,y,z;
+   z = message%26;
+   y = ((message-z)/26)%26;
+   x = ((message-z)-(y*26))/(26*26);
+  System.out.print(matchWord(x)+matchWord(y)+matchWord(z));
+}
+    /*Matching numbers with letters*/
+    public static String matchWord(int a){
+  String x="A";
+  switch(a) {
+    case 0 :
+      x = "A";      
+      break;
+    case 1 :
+      x = "B";      
+      break;
+    case 2 :
+      x = "C";      
+      break;
+    case 3 :
+      x = "D";      
+      break;
+    case 4 :
+      x = "E";      
+      break;
+    case 5 :
+      x = "F";      
+      break;
+    case 6 :
+      x = "G";
+      break;
+    case 7 :
+      x = "H";    
+      break;
+    case 8 :
+      x = "I";
+      break;
+    case 9 :
+      x = "J";
+      break;
+    case 10 :
+      x = "K";
+      break;
+    case 11 :
+      x = "L";   
+      break;
+    case 12 :
+      x = "M";     
+      break;
+    case 13 :
+      x = "N";     
+      break;
+    case 14 :
+      x = "O";    
+      break;
+    case 15 :
+      x = "P";     
+      break;
+    case 16 :
+      x = "Q"; 
+      break;
+    case 17 :
+      x = "R";
+      break;
+    case 18 :
+      x = "S"; 
+      break;
+    case 19 :
+      x = "T";
+      break;
+    case 20 :
+      x = "U";
+      break;
+    case 21 :
+      x = "V";
+      break;
+    case 22 :
+      x = "W"; 
+      break;
+    case 23 :
+      x = "X";
+      break;
+    case 24 :
+      x = "Y";
+      break;
+    case 25 :
+      x = "Z";
+      break;
+}
+  return x;
+}
 }
